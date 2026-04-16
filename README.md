@@ -62,6 +62,243 @@ docker compose up -d --build
 - http://localhost:8080
 - http://localhost:8080/healthz
 
+curl http://localhost:8080
+curl http://localhost:8080/healthz
+
+        <html>
+            <head>
+                <title>Course App</title>
+                <meta name=viewport content="width=device-width, initial-scale=1" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+                <style>
+                    :root {
+                        --bg:#0b1020;
+                        --bg-grad1:#0b1020; /* start */
+                        --bg-grad2:#0d1330; /* mid */
+                        --bg-grad3:#0a0f28; /* end */
+                        --card:#101833cc; /* translucent */
+                        --card-border:#28345f80;
+                        --text:#e6e8ef;
+                        --muted:#a7b0c0;
+                        --accent:#7aa2f7;
+                        --accent-600:#5d87f6;
+                        --accent-700:#4b75ea;
+                        --ok:#98c379; --warn:#e5c07b; --err:#e06c75;
+                        --ring:#9ab6ff;
+                    }
+
+                    * { box-sizing: border-box; }
+                    html, body { height: 100%; }
+                    body {
+                        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+                        margin:0;
+                        color:var(--text);
+                        background:
+                            radial-gradient(1200px 600px at 10% -10%, #20327544, transparent 60%),
+                            radial-gradient(1000px 500px at 95% 10%, #1b254d55, transparent 60%),
+                            linear-gradient(180deg, var(--bg-grad1) 0%, var(--bg-grad2) 40%, var(--bg-grad3) 100%);
+                    }
+
+                    .wrap {
+                        max-width: 1100px;
+                        margin: 0 auto;
+                        padding: 32px clamp(20px, 4vw, 40px) 48px;
+                    }
+
+                    header.app {
+                        display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+                        margin-bottom: 24px;
+                    }
+                    h1 { margin: 0; font-size: clamp(28px, 2.4vw, 36px); letter-spacing: -0.015em; }
+                    p.lead { margin: 8px 0 0 0; color: var(--muted); font-size: 15px; }
+
+                    .pillbar { margin:12px 0 24px 0; display:flex; flex-wrap:wrap; gap:10px; }
+                    .badge {
+                        display:inline-flex; align-items:center; gap:6px;
+                        background: #1b254dcc; color:#dde6ff; padding:7px 12px;
+                        border:1px solid #2a376ecc; border-radius:999px; font-size:13px;
+                        backdrop-filter: blur(6px);
+                    }
+
+                    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+                    .card {
+                        background: var(--card);
+                        border:1px solid var(--card-border);
+                        border-radius: 16px;
+                        padding: 22px;
+                        box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+                        backdrop-filter: blur(10px);
+                    }
+                    .card h3 { margin: 0 0 16px 0; font-size: 18px; font-weight: 600; }
+
+                    label { display:block; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 8px; }
+                    input[type=text], input[type=number] {
+                        width:100%; background:#0f1736; color:var(--text); font-size: 14px;
+                        border:1px solid #2b3970; padding:11px 14px; border-radius:10px;
+                        outline: none; transition: box-shadow .15s ease, border-color .15s ease;
+                    }
+                    input[type=text]:focus, input[type=number]:focus {
+                        border-color: var(--ring);
+                        box-shadow: 0 0 0 3px #9ab6ff33;
+                    }
+
+                    button {
+                        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-600) 90%);
+                        border: 1px solid #4569d6;
+                        color: #0b1020; font-weight: 700; font-size: 14px; letter-spacing: .01em;
+                        padding: 11px 16px; border-radius: 10px; cursor: pointer;
+                        transition: transform .06s ease, filter .2s ease, box-shadow .2s ease;
+                        box-shadow: 0 6px 18px #2540a855;
+                    }
+                    button:hover { filter: brightness(1.02); box-shadow: 0 8px 22px #2540a866; }
+                    button:active { transform: translateY(1px); }
+                    button:disabled { opacity: .6; cursor: default; box-shadow:none; }
+
+                    ul.msgs {
+                        list-style:none; padding:0; margin:0;
+                        display:flex; flex-direction:column; gap:12px;
+                        max-height:300px; overflow-y:auto;
+                        scrollbar-width: thin;
+                        scrollbar-color: #2b3970 transparent;
+                    }
+                    ul.msgs::-webkit-scrollbar { width: 8px; }
+                    ul.msgs::-webkit-scrollbar-track { background: transparent; }
+                    ul.msgs::-webkit-scrollbar-thumb { background: #2b3970; border-radius: 4px; }
+                    ul.msgs::-webkit-scrollbar-thumb:hover { background: #3a4a8a; }
+                    ul.msgs li { background:#0f1632; border:1px solid #2b3970; padding:14px; border-radius:10px; }
+
+                    .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+                    code { background:#0f1632; border:1px solid #2b3970; padding:4px 9px; border-radius:8px; font-size: 13px; }
+                    a { color:#9ab6ff; text-decoration: none; }
+                    a:hover { text-decoration: underline; }
+                </style>
+            </head>
+      <body>
+                <div class="wrap">
+                    <header class="app">
+                        <div>
+                            <h1>Docker & Kubernetes Course App</h1>
+                            <p class="lead">Welcome to the Course App</p>
+                        </div>
+                    </header>
+                    <div class="pillbar">
+                        <span class="badge">pod: f3b345e14890</span>
+                        <span class="badge">store: redis</span>
+                        <span class="badge">visits: <span id="visits">2</span></span>
+                    </div>
+
+          <div class="grid">
+            <section class="card">
+              <h3>Messages</h3>
+              <form id="msgForm" onsubmit="return false;" style="margin-bottom:14px">
+                <label for="msgInput">Post a message</label>
+                <div class="row">
+                  <input id="msgInput" type="text" placeholder="Type a message..." />
+                  <button id="btnPost">Send</button>
+                </div>
+                <div id="msgStatus" style="font-size:13px;color:var(--muted);margin-top:6px;"></div>
+              </form>
+              <ul id="msgList" class="msgs"></ul>
+            </section>
+
+            <section class="card">
+              <h3>Stress CPU</h3>
+              <label for="secInput">Duration (seconds)</label>
+              <div class="row" style="margin-bottom:12px">
+                <input id="secInput" type="number" min="1" max="120" value="10" style="max-width:140px" />
+                <button id="btnStress">Start</button>
+              </div>
+              <div id="stressStatus" style="font-size:13px;color:var(--muted);margin-bottom:14px;">Runs background CPU work to demo HPA.</div>
+              <div style="margin-bottom:14px">
+                <div class="row" style="gap:8px">
+                  <button id="btnHealth">Check /healthz</button>
+                  <button id="btnReady">Check /readyz</button>
+                </div>
+                <div id="hzStatus" style="font-size:13px;margin-top:10px;color:var(--muted);"></div>
+              </div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.5;">
+                Try API: <code>/healthz</code>, <code>/readyz</code>, <code>/api/info</code>, <code>/api/messages</code>, <code>/stress?seconds=10</code>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <script>
+          async function fetchJSON(url, opts={}) {
+            const r = await fetch(url, opts);
+            if (!r.ok) throw new Error(await r.text());
+            return r.json();
+          }
+
+          async function loadMessages() {
+            try {
+              const data = await fetchJSON('/api/messages?limit=50');
+              const list = document.getElementById('msgList');
+              list.innerHTML = '';
+              for (const it of (data.items || [])) {
+                const li = document.createElement('li');
+                const dt = new Date(it.created_at || '').toLocaleString();
+                li.innerHTML = `<div style="font-size:12px;color:var(--muted)">#${it.id} • ${dt}</div><div>${(it.text||'')}</div>`;
+                list.appendChild(li);
+              }
+            } catch(e) {
+              console.warn('loadMessages failed', e);
+            }
+          }
+
+          async function refreshVisits() {
+            try {
+              const data = await fetchJSON('/api/counter/visits');
+              document.getElementById('visits').textContent = data.value;
+            } catch { /* ignore */ }
+          }
+
+          document.getElementById('btnPost').addEventListener('click', async () => {
+            const input = document.getElementById('msgInput');
+            const btn = document.getElementById('btnPost');
+            const st = document.getElementById('msgStatus');
+            const text = (input.value || '').trim();
+            if (!text) return;
+            btn.disabled = true; st.textContent = 'Posting...';
+            try {
+              const body = new URLSearchParams(); body.set('text', text);
+              await fetchJSON('/api/messages', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body });
+              input.value=''; st.textContent = 'Posted!';
+              await loadMessages(); await refreshVisits();
+            } catch(e) {
+              st.textContent = 'Error: ' + (e.message || 'failed');
+            } finally { btn.disabled = false; }
+          });
+
+          document.getElementById('btnStress').addEventListener('click', async () => {
+            const sec = Math.max(1, Math.min(120, parseInt(document.getElementById('secInput').value || '10')));
+            const st = document.getElementById('stressStatus');
+            st.textContent = 'Starting stress for ' + sec + 's...';
+            try {
+              await fetchJSON(`/stress?seconds=${sec}&background=true`);
+              st.textContent = 'Stress started. Generate load in parallel to see HPA.';
+            } catch(e) { st.textContent = 'Error: ' + (e.message || 'failed'); }
+          });
+
+          document.getElementById('btnHealth').addEventListener('click', async () => {
+            const st = document.getElementById('hzStatus');
+            try { const x = await fetchJSON('/healthz'); st.textContent = 'Health: ' + x.status; }
+            catch(e) { st.textContent = 'Health error'; }
+          });
+          document.getElementById('btnReady').addEventListener('click', async () => {
+            const st = document.getElementById('hzStatus');
+            try { const x = await fetchJSON('/readyz'); st.textContent = 'Ready: ' + x.status; }
+            catch(e) { st.textContent = 'Ready error'; }
+          });
+
+          loadMessages();
+        </script>
+      </body>
+    </html>
+    {"status":"ok"}@YevhenMarholin ➜ /workspaces/homework-lesson-04-Yevhen-Marholin (main) $ 
+
 ```bash
 curl http://localhost:8080
 curl http://localhost:8080/healthz
