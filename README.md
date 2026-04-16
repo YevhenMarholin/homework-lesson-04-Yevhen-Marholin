@@ -1,5 +1,4 @@
 # homework-lesson-04-Yevhen-Marholin
-# homework-lesson-04-Yevhen-Marholin
 
 ## Docker Compose для course-app
 
